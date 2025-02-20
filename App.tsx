@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { AuthNavigator } from "./src/navigation/AuthNavigator";
-import { AppNavigator } from "./src/navigation/AppNavigator";
+import { AuthNavigator } from "./ignoreOLD/navigation/AuthNavigator";
+import { AppNavigator } from "./ignoreOLD/navigation/AppNavigator";
 import { RootStackParamList } from "./src/types/index";
 import { AuthProvider, useAuth } from "./src/context/AuthContext";
 

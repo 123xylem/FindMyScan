@@ -9,15 +9,15 @@ import {
   ActivityIndicator,
   Image,
 } from "react-native";
-import { Button } from "../../components/common/Button";
-import { Input } from "../../components/common/Input";
+import { Button } from "../../../../components/common/Button";
+import { Input } from "../../../../components/common/Input";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { uploadScan } from "../../services/scans";
-import { ScanType } from "../../types";
-import { ProfileScreenProps } from "../../types";
-
+import { uploadScan } from "../../../../services/scans";
+import { ScanType } from "../../../../types";
+import { ProfileScreenProps } from "../../../../types";
+import { Link, router } from "expo-router";
 const ALLOWED_TYPES = [
   "image/jpeg",
   "image/png",
@@ -29,9 +29,7 @@ const ALLOWED_TYPES = [
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-export const UploadScan = ({
-  navigation,
-}: ProfileScreenProps<"UploadScan">) => {
+export default function UploadScan(): React.JSX.Element {
   const [file, setFile] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [scanType, setScanType] = useState<ScanType>(ScanType.XRAY);
@@ -116,7 +114,7 @@ export const UploadScan = ({
         notes,
       });
 
-      navigation.navigate("MyScansList");
+      router.replace("upload");
     } catch (error: any) {
       setError(error.message || "Failed to upload scan");
     } finally {
@@ -195,12 +193,9 @@ export const UploadScan = ({
           onPress={handleUpload}
           disabled={loading}
         />
-        <Button
-          title="Cancel"
-          variant="secondary"
-          onPress={() => navigation.goBack()}
-          disabled={loading}
-        />
+        <Link href="/(tabs)/profile/scans" asChild>
+          <Button title="Go Back" onPress={() => {}} variant="secondary" />
+        </Link>
       </View>
 
       {loading && (
@@ -210,7 +205,7 @@ export const UploadScan = ({
       )}
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

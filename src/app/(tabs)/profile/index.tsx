@@ -1,34 +1,27 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { ProfileScreenProps } from "../../types";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
+import { Link } from "expo-router";
 
-export const ProfileScreen = ({
-  navigation,
-}: ProfileScreenProps<"Profile">) => {
+export default function ProfileScreen(): React.JSX.Element {
   const { user, isAuthenticated, logout } = useAuth();
 
   if (!isAuthenticated) {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome to FindMyScan</Text>
+        <Text style={styles.title}>Welcome to FindMyScan!</Text>
         <View style={styles.buttonContainer}>
-          <Pressable
-            style={styles.button}
-            onPress={() =>
-              navigation.navigate("Login", { returnTo: "Profile" })
-            }
-          >
-            <Text style={styles.buttonText}>Login</Text>
-          </Pressable>
-          <Pressable
-            style={[styles.button, styles.secondaryButton]}
-            onPress={() =>
-              navigation.navigate("Register", { returnTo: "Profile" })
-            }
-          >
-            <Text style={styles.buttonText}>Register</Text>
-          </Pressable>
+          <Link href="/(auth)/login" asChild>
+            <Pressable style={styles.button}>
+              <Text style={styles.buttonText}>Login!</Text>
+            </Pressable>
+          </Link>
+
+          <Link href="/(auth)/register" asChild>
+            <Pressable style={{ ...styles.button, ...styles.secondaryButton }}>
+              <Text style={styles.buttonText}>Register!</Text>
+            </Pressable>
+          </Link>
         </View>
       </View>
     );
@@ -42,12 +35,11 @@ export const ProfileScreen = ({
       </View>
       <View style={styles.buttonContainer}>
         {isAuthenticated && (
-          <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate("MyScansList")}
-          >
-            <Text style={styles.buttonText}>My Scans</Text>
-          </Pressable>
+          <Link href="/(tabs)/profile/scans" asChild>
+            <Pressable style={styles.button}>
+              <Text style={styles.buttonText}>My Scans</Text>
+            </Pressable>
+          </Link>
         )}
         <Pressable
           style={[styles.button, styles.dangerButton]}
@@ -58,7 +50,7 @@ export const ProfileScreen = ({
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

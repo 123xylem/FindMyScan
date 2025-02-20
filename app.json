@@ -1,38 +1,23 @@
 {
   "expo": {
-    "name": "FindMyScan",
-    "slug": "FindMyScan",
+    "name": "findmyscan",
+    "slug": "findmyscan",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "scheme": "findmyscan",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.FindMyScan"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.anonymous.FindMyScan"
+      }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "bundler": "metro"
     },
-    "plugins": [
-      [
-        "@rnmapbox/maps",
-        {
-          "mapboxPublicKey": "YOUR_PUBLIC_KEY_HERE"
-        }
-      ]
-    ]
+    "plugins": ["expo-router"]
   }
 }

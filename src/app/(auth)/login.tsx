@@ -10,11 +10,11 @@ import {
 } from "react-native";
 import { Button } from "../../components/common/Button";
 import { signInWithEmail, signInWithGoogle } from "../../services/auth";
-import { ProfileScreenProps } from "../../types";
 import { useAuth } from "../../hooks/useAuth";
 import { isValidEmail } from "../../utils/validation";
+import { router } from "expo-router";
 
-export const LoginScreen = ({ navigation }: ProfileScreenProps<"Login">) => {
+export default function LoginScreen() {
   const { setIsAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,10 +44,7 @@ export const LoginScreen = ({ navigation }: ProfileScreenProps<"Login">) => {
       const data = await signInWithEmail(email, password);
       if (data?.user) {
         setIsAuthenticated(true);
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "Profile" }],
-        });
+        router.replace("/(tabs)/profile");
       }
     } catch (error: any) {
       setError(error.message || "Login failed. Please try again.");
@@ -87,14 +84,12 @@ export const LoginScreen = ({ navigation }: ProfileScreenProps<"Login">) => {
         <Button title="Login with Google" onPress={handleGoogleLogin} />
         <Button
           title="Register"
-          onPress={() =>
-            navigation.navigate("Register", { returnTo: "Profile" })
-          }
+          onPress={() => router.push("/(auth)/register")}
         />
       </View>
     </TouchableWithoutFeedback>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
