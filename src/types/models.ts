@@ -28,6 +28,7 @@ export interface ScanCenter {
   createdAt: string;
   updatedAt: string;
   imageUrl?: string;
+  bookingUrl?: string;
   scanTypes?: ScanType[];
 }
 

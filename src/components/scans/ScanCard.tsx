@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { UserScan } from "../../types/models";
 import { formatDate } from "../../utils/date";
-import { ScanPreview } from "../ScanPreview";
+import { ScanPreview } from "./ScanPreview";
 import { deleteScan } from "../../services/scans";
 import { Button } from "../common/Button";
 

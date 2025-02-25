@@ -7,15 +7,15 @@ import {
   ActivityIndicator,
   Text,
 } from "react-native";
-import { ScanCard } from "../../components/scans/ScanCard";
+import { ScanCard } from "../../../../components/scans/ScanCard";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { AppStackParamList } from "../../types/index";
-import { Button } from "../../components/common/Button";
-import { ProfileScreenProps } from "../../types";
-import { getUserScans, deleteScan } from "../../services/scans";
-import type { UserScan } from "../../types/models";
-import { EditScanModal } from "../../components/scans/EditScanModal";
-
+import { AppStackParamList } from "../../../../types/index";
+import { Button } from "../../../../components/common/Button";
+import { ProfileScreenProps } from "../../../../types";
+import { getUserScans, deleteScan } from "../../../../services/scans";
+import type { UserScan } from "../../../../types/models";
+import { EditScanModal } from "../../../../components/scans/EditScanModal";
+import { Link } from "expo-router";
 type Props = NativeStackScreenProps<
   AppStackParamList,
   "MyScansList",
@@ -38,9 +38,7 @@ const DUMMY_SCANS = [
   // ... more scans
 ];
 
-export const MyScansList = ({
-  navigation,
-}: ProfileScreenProps<"MyScansList">) => {
+export default function MyScansList(): React.JSX.Element {
   const [scans, setScans] = useState<UserScan[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -108,11 +106,13 @@ export const MyScansList = ({
 
   return (
     <View style={styles.container}>
-      <Button
-        title="Upload New Scan"
-        onPress={() => navigation.navigate("UploadScan")}
-        style={styles.uploadButton}
-      />
+      <Link href="/(tabs)/profile/scans/upload" asChild>
+        <Button
+          title="Upload New Scan"
+          onPress={() => {}}
+          style={styles.uploadButton}
+        />
+      </Link>
       <FlatList
         data={scans}
         renderItem={({ item }) => (
@@ -144,7 +144,7 @@ export const MyScansList = ({
       )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

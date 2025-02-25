@@ -14,6 +14,7 @@ import Slider from "@react-native-community/slider";
 import type { ScanCenter } from "../../types";
 import { ScanType, Coordinates } from "../../types/models";
 import { getPlaceSuggestions, PlaceSuggestion } from "../../utils/geocoding";
+import { Ionicons } from "@expo/vector-icons";
 
 type Props = {
   onFilterChange: (filters: FilterOptions) => void;
@@ -93,7 +94,13 @@ export const CenterFilters = ({ onFilterChange, centerCount }: Props) => {
           {/* <Text style={styles.title}>Filter Centers</Text> */}
           <Text style={styles.count}>{centerCount} centers found</Text>
         </View>
-        <Text>{isExpanded ? "▼" : "▲"}</Text>
+        <Text>
+          {isExpanded ? (
+            <Ionicons name="chevron-up" size={24} />
+          ) : (
+            <Ionicons name="filter" size={24} />
+          )}
+        </Text>
       </Pressable>
 
       <Animated.View

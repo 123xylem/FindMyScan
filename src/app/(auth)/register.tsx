@@ -10,12 +10,11 @@ import {
 } from "react-native";
 import { Button } from "../../components/common/Button";
 import { signUp } from "../../services/auth";
-import { ProfileScreenProps } from "../../types";
 import { isValidEmail, isValidName } from "../../utils/validation";
+import { router } from "expo-router";
 
-export const RegisterScreen = ({
-  navigation,
-}: ProfileScreenProps<"Register">) => {
+export default function RegisterScreen() {
+  console.log("Register screen rendering");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -47,11 +46,7 @@ export const RegisterScreen = ({
       if (!validateForm()) return;
 
       await signUp(email, password, fullName);
-      // Reset navigation stack
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "Profile", params: { returnTo: "Profile" } }],
-      });
+      router.replace("/(tabs)/profile");
     } catch (error: any) {
       setError(error.message || "Registration failed. Please try again.");
     }
@@ -87,14 +82,11 @@ export const RegisterScreen = ({
           secureTextEntry
         />
         <Button title="Create Account" onPress={handleRegister} />
-        <Button
-          title="Back to Login"
-          onPress={() => navigation.navigate("Login", { returnTo: "Profile" })}
-        />
+        <Button title="Back to Login" onPress={() => router.back()} />
       </View>
     </TouchableWithoutFeedback>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

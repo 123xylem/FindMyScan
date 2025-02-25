@@ -1,6 +1,6 @@
 import { supabase } from "./supabase";
 import type { ScanCenter } from "../types";
-
+import { transformDatabaseToModel } from "../utils/dataTransforms";
 export const getCenters = async (): Promise<ScanCenter[]> => {
   const { data, error } = await supabase
     .from("scan_centers")
@@ -17,5 +17,5 @@ export const getCenters = async (): Promise<ScanCenter[]> => {
     .order("name");
 
   if (error) throw error;
-  return data;
+  return data.map(transformDatabaseToModel);
 };

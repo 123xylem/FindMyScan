@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { AppStackScreenProps, ScanType } from "../../types";
+import { ScanType } from "../../types";
 import type { ScanCenter } from "../../types";
-import { CenterFilters } from "./CenterFilters";
+import { CenterFilters } from "../../components/centers/CenterFilters";
 import { useFilteredCenters } from "../../hooks/useFilteredCenters";
-
+import { router } from "expo-router";
 const DUMMY_CENTERS: ScanCenter[] = [
   {
     id: "1",
@@ -57,7 +57,7 @@ const DUMMY_CENTERS: ScanCenter[] = [
   },
 ];
 
-export const MapScreen = ({ navigation }: AppStackScreenProps<"Map">) => {
+export default function MapScreen(): React.JSX.Element {
   const { filters, setFilters, filteredCenters } =
     useFilteredCenters(DUMMY_CENTERS);
 
@@ -85,13 +85,18 @@ export const MapScreen = ({ navigation }: AppStackScreenProps<"Map">) => {
             }}
             title={center.name}
             description={center.address}
-            onPress={() => navigation.navigate("ScanCenterDetails", { center })}
+            onPress={() =>
+              router.push({
+                pathname: "/scan-center-details",
+                params: { center: JSON.stringify(center) },
+              })
+            }
           />
         ))}
       </MapView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
