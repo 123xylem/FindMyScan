@@ -8,18 +8,21 @@ import {
   Linking,
 } from "react-native";
 import type { ScanCenter } from "../../types";
+import { Link } from "expo-router";
 
 type Props = {
   center: ScanCenter;
   onPress: () => void;
 };
 
-export const CenterCard = ({ center, onPress }: Props) => {
+export default function CenterCard({ center, onPress }: Props) {
   const openInMaps = () => {
     const url = `https://www.google.com/maps/search/?api=1&query=${center.latitude},${center.longitude}`;
     Linking.openURL(url);
   };
-
+  {
+    console.log(center.imageUrl);
+  }
   return (
     <Pressable style={styles.card} onPress={onPress}>
       <Image source={{ uri: center.imageUrl }} style={styles.image} />
@@ -32,13 +35,18 @@ export const CenterCard = ({ center, onPress }: Props) => {
             <Text style={styles.mapLink}>View in Maps →</Text>
           </Pressable>
         </View>
+        <View style={styles.booking}>
+          <Link style={styles.bookingLink} href={`${center.bookingUrl}`}>
+            Book Now
+          </Link>
+        </View>
         {center.scanTypes && (
           <Text style={styles.scanTypes}>{center.scanTypes.join(", ")}</Text>
         )}
       </View>
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   card: {
@@ -87,5 +95,15 @@ const styles = StyleSheet.create({
   mapLink: {
     color: "#007AFF",
     fontSize: 14,
+  },
+  booking: {
+    marginTop: 12,
+  },
+  bookingLink: {
+    color: "#fff",
+    fontSize: 14,
+    backgroundColor: "#007AFF",
+    padding: 10,
+    borderRadius: 5,
   },
 });

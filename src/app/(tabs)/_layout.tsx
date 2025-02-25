@@ -41,6 +41,14 @@ export default function TabsLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="centers/[id]"
+        options={{
+          title: "Center Details",
+          tabBarButton: () => null,
+          headerShown: false,
+        }}
+      />
     </Tabs>
   );
 }
